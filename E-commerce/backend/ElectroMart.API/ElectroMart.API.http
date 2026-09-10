@@ -1,0 +1,6 @@
+@ElectroMart.API_HostAddress = http://localhost:5247
+
+GET {{ElectroMart.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

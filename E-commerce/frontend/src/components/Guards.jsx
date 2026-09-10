@@ -1,0 +1,1 @@
+import {Navigate} from 'react-router-dom';import {useAuth} from '../context/AuthContext';export function Protected({children}){return useAuth().user?children:<Navigate to="/login" replace/>}export function Admin({children}){const {user}=useAuth();return user?.role==='Admin'?children:<Navigate to="/" replace/>}

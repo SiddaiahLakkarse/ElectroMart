@@ -1,0 +1,21 @@
+using System.ComponentModel.DataAnnotations;
+using ElectroMart.API.Models;
+
+namespace ElectroMart.API.DTOs;
+public record RegisterRequest([Required,MaxLength(80)] string FirstName,[Required,MaxLength(80)] string LastName,[Required,EmailAddress] string Email,[Required,MinLength(6)] string Password);
+public record LoginRequest([Required,EmailAddress] string Email,[Required] string Password);
+public record UpdateProfileRequest([Required]string FirstName,[Required]string LastName,string? PhoneNumber,string? Address,string? City,string? State,string? PostalCode);
+public record ProductRequest([Required]string Name,[Required]string Brand,[Required]string Description,[Range(0,1000000)]decimal Price,decimal? DiscountPrice,[Range(0,1000000)]int StockQuantity,string? ImageUrl,[Required]int CategoryId,bool IsFeatured,bool IsActive,string? Specifications);
+public record CategoryRequest([Required]string Name,string? Description,string? ImageUrl,bool IsActive=true);
+public record AddCartItemRequest([Range(1,int.MaxValue)]int ProductId,[Range(1,100)]int Quantity);
+public record UpdateCartItemRequest([Range(1,100)]int Quantity);
+public record CheckoutRequest([Required]string ShippingAddress,[Required]string PaymentMethod);
+public record StatusRequest([Required]OrderStatus Status);
+public record UserDto(int Id,string FirstName,string LastName,string Email,string Role,string? PhoneNumber,string? Address,string? City,string? State,string? PostalCode);
+public record AuthResponse(string Token,UserDto User);
+public record ProductDto(int Id,string Name,string Brand,string Description,decimal Price,decimal? DiscountPrice,int StockQuantity,string? ImageUrl,int CategoryId,string Category,bool IsFeatured,bool IsActive,string? Specifications,DateTime CreatedAt);
+public record CategoryDto(int Id,string Name,string? Description,string? ImageUrl,bool IsActive);
+public record CartItemDto(int Id,int ProductId,string ProductName,string? ImageUrl,int Quantity,decimal UnitPrice,decimal Subtotal,int StockQuantity);
+public record CartDto(int Id,IEnumerable<CartItemDto> Items,decimal Total);
+public record OrderItemDto(int ProductId,string ProductName,string? ImageUrl,decimal UnitPrice,int Quantity,decimal Subtotal);
+public record OrderDto(int Id,string OrderNumber,decimal TotalAmount,string ShippingAddress,string PaymentMethod,string PaymentStatus,string OrderStatus,DateTime CreatedAt,IEnumerable<OrderItemDto> Items);
